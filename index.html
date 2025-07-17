@@ -1,171 +1,123 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Login</title>
+    <title>Analisador de Roleta - Estratégia Avançada</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
             padding: 20px;
+            background-color: #f5f5f5;
         }
-        
-        .login-container {
-            background: white;
-            padding: 40px;
+        .container {
+            background-color: white;
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 450px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        
-        h2 {
+        h1 {
+            color: #d32f2f;
             text-align: center;
-            margin-bottom: 30px;
-            color: #333;
         }
-        
-        .input-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
-        }
-        
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 15px;
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: border 0.3s;
         }
-        
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            border-color: #2575fc;
-            outline: none;
-            box-shadow: 0 0 5px rgba(37, 117, 252, 0.3);
-        }
-        
-        .options {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 25px;
-            font-size: 14px;
-        }
-        
-        .remember {
-            display: flex;
-            align-items: center;
-        }
-        
-        .remember input {
-            margin-right: 5px;
-        }
-        
-        .forgot-password {
-            color: #2575fc;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .forgot-password:hover {
-            color: #6a11cb;
-            text-decoration: underline;
-        }
-        
         button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            border: none;
-            border-radius: 5px;
+            background-color: #d32f2f;
             color: white;
-            font-size: 16px;
-            font-weight: 600;
+            border: none;
             cursor: pointer;
-            transition: opacity 0.3s;
+            font-weight: bold;
         }
-        
         button:hover {
-            opacity: 0.9;
+            background-color: #b71c1c;
         }
-        
-        .signup {
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .number-chip {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
             text-align: center;
-            margin-top: 25px;
-            font-size: 14px;
+            background-color: #d32f2f;
+            color: white;
+            border-radius: 50%;
+            margin: 5px;
+            font-weight: bold;
         }
-        
-        .signup a {
-            color: #2575fc;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-        
-        .signup a:hover {
-            color: #6a11cb;
-            text-decoration: underline;
-        }
-        
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 30px 20px;
-            }
-            
-            .options {
-                flex-direction: column;
-                gap: 10px;
-            }
+        .green-chip {
+            background-color: #2e7d32;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form action="/login" method="POST">
-            <div class="input-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
-            </div>
-            
-            <div class="input-group">
-                <label for="password">Senha</label>
-                <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
-            </div>
-            
-            <div class="options">
-                <div class="remember">
-                    <input type="checkbox" id="remember" name="remember">
-                    <label for="remember">Lembrar-me</label>
-                </div>
-                <a href="#" class="forgot-password">Esqueceu a senha?</a>
-            </div>
-            
-            <button type="submit">Entrar</button>
-        </form>
+    <div class="container">
+        <h1>Analisador de Roleta</h1>
+        <p>Digite o último número que saiu na roleta europeia:</p>
         
-        <div class="signup">
-            <p>Não tem uma conta? <a href="#">Cadastre-se</a></p>
+        <input type="number" id="numeroInput" min="0" max="36" placeholder="0-36">
+        <button onclick="analisarNumero()">Analisar</button>
+        
+        <div id="resultado" class="result" style="display: none;">
+            <h3>Melhores apostas (6 números):</h3>
+            <div id="numerosSugeridos"></div>
+            <p id="estrategia"></p>
         </div>
     </div>
+
+    <script>
+        // Mapeamento de números para suas relações
+        const relacoes = {
+            0: { principais: [26, 3, 32], estrategia: "Zero ativa números de segurança: aposte nos vizinhos físicos" },
+            17: { principais: [34, 6, 25, 17, 22, 5], estrategia: "Cluster quente: aposte no núcleo 17-34-6 e seus derivados" },
+            25: { principais: [17, 34, 2, 25, 16, 29], estrategia: "Atractor áureo: siga a sequência 25-17-34" },
+            22: { principais: [23, 18, 29, 22, 17, 5], estrategia: "Padrão de repetição: cubra os vizinhos físicos e estatísticos" },
+            34: { principais: [6, 17, 25, 34, 5, 10], estrategia: "Pivô mecânico: aposte na tríade 34-6-17" },
+            // Padrões para outros números...
+            default: { principais: [17, 25, 22, 34, 6, 29], estrategia: "Sem padrão forte. Sugestão: focar nos números quentes principais" }
+        };
+
+        function analisarNumero() {
+            const numero = parseInt(document.getElementById('numeroInput').value);
+            const resultadoDiv = document.getElementById('resultado');
+            const numerosDiv = document.getElementById('numerosSugeridos');
+            const estrategiaP = document.getElementById('estrategia');
+            
+            if (numero >= 0 && numero <= 36) {
+                const dados = relacoes[numero] || relacoes.default;
+                
+                // Limpa resultados anteriores
+                numerosDiv.innerHTML = '';
+                
+                // Mostra os números sugeridos
+                dados.principais.slice(0, 6).forEach(num => {
+                    const chip = document.createElement('div');
+                    chip.className = num === 0 ? 'number-chip green-chip' : 'number-chip';
+                    chip.textContent = num;
+                    numerosDiv.appendChild(chip);
+                });
+                
+                // Mostra a estratégia
+                estrategiaP.textContent = dados.estrategia;
+                
+                // Exibe o resultado
+                resultadoDiv.style.display = 'block';
+            } else {
+                alert("Por favor, digite um número entre 0 e 36");
+            }
+        }
+    </script>
 </body>
 </html>
